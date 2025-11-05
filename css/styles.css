@@ -892,6 +892,14 @@ footer {
 footer p {
   color: white;
 }
+footer a {
+  color: white;
+  text-decoration: underline;
+}
+footer a:hover {
+  text-decoration: underline;
+  color: rgba(255, 255, 255, 0.8);
+}
 footer .legal {
   margin: 0;
   font-size: 0.9rem;
