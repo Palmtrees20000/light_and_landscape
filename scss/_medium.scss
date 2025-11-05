@@ -1,25 +1,3 @@
-/* NAVIGATION STUFF GOES HERE  */
-#hamburgerBtn {
-    display: none;
-}
-#primaryNav {
-    display: flex;
-}
-nav {
-    ul li a {
-        border: none;
-        font-size: .85rem;
-        font-weight: $normalWeight;
-        padding: .5rem 1.2rem;
-        /*transition*/
-        transition: background 0.5s linear;
-    }
-    ul li a:hover {
-        background-color: $primaryColor;
-        color: white;
-    }
-} // end nav
-
 /* --------------------------- NAVBAR - MEDIUM SCREENS --------------------------- */
 .navbar {
     .nav-bar-wrapper {
@@ -63,12 +41,18 @@ nav {
                 .dropdown-menu {
                     position: absolute;
                     top: 100%;
-                    left: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
                     min-width: 200px;
                     background-color: #2a2a2a;
                     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
                     border-radius: 0 0 8px 8px;
                     margin-top: 0;
+                    max-height: none;
+                    overflow: visible;
+                    transition: opacity 0.3s ease, visibility 0.3s ease;
+                    opacity: 0;
+                    visibility: hidden;
                     
                     li {
                         .dropdown-link {
@@ -90,6 +74,8 @@ nav {
                 &:hover {
                     .dropdown-menu {
                         display: block;
+                        opacity: 1;
+                        visibility: visible;
                     }
                     
                     .dropdown-arrow {
@@ -165,20 +151,6 @@ header {
         .hero-subtext {
             font-size: 1rem; // Larger subtext for better readability
         }
-    }
-}
-
-/* --------------------------- HEADER RESPONSIVE - MEDIUM SCREENS --------------------------- */
-#speakers {
-    .speakers-container {
-        grid-template-columns: repeat(2, 1fr); // Two columns for tablets
-        gap: 2rem;
-        justify-items: center; // Center cards in their grid areas
-    }
-    
-    .speaker-card {
-        height: 420px; // Slightly taller for better proportions on medium screens
-        max-width: 280px; // Constrain width for better proportions on medium screens
     }
 }
 

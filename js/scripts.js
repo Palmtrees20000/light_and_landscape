@@ -20,7 +20,7 @@ if (hamburger && navMenu) {
   });
 }
 
-// Dropdown Menu Toggle for Mobile
+// Dropdown Menu Toggle for Mobile/Tablet
 const dropdownItems = document.querySelectorAll('.nav-item.dropdown');
 
 dropdownItems.forEach(item => {
@@ -28,7 +28,7 @@ dropdownItems.forEach(item => {
   
   link.addEventListener('click', (e) => {
     // Only toggle dropdown on mobile and tablet (not desktop)
-    if (window.innerWidth < 1024) {
+    if (window.innerWidth < 770) {
       e.preventDefault();
       
       // Close other dropdowns
@@ -38,7 +38,7 @@ dropdownItems.forEach(item => {
         }
       });
       
-      // Toggle current dropdown
+      // Toggle current dropdown with smooth animation
       item.classList.toggle('active');
     }
   });
@@ -50,9 +50,40 @@ document.querySelectorAll('.dropdown-link').forEach(link => {
     dropdownItems.forEach(item => {
       item.classList.remove('active');
     });
-    hamburger.classList.remove('active');
-    navMenu.classList.remove('active');
+    if (hamburger && navMenu) {
+      hamburger.classList.remove('active');
+      navMenu.classList.remove('active');
+    }
   });
+});
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.nav-item.dropdown') && !e.target.closest('.hamburger')) {
+    dropdownItems.forEach(item => {
+      item.classList.remove('active');
+    });
+  }
+});
+
+// Remove active class from dropdowns on window resize (tablet/desktop transition)
+let previousWidth = window.innerWidth;
+window.addEventListener('resize', () => {
+  const currentWidth = window.innerWidth;
+  
+  // Clear dropdowns when crossing the 770px (48.125rem) breakpoint
+  if ((previousWidth < 770 && currentWidth >= 770) || 
+      (previousWidth >= 770 && currentWidth < 770)) {
+    dropdownItems.forEach(item => {
+      item.classList.remove('active');
+    });
+    if (hamburger && navMenu && currentWidth >= 770) {
+      hamburger.classList.remove('active');
+      navMenu.classList.remove('active');
+    }
+  }
+  
+  previousWidth = currentWidth;
 });
 
 // Hero Slider Initialization
