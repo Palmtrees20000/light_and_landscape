@@ -868,11 +868,12 @@ main p {
   margin: 0 0 1rem 0;
   font-style: italic;
 }
-.testimonials-section .testimonial .testimonial-content h4 {
+.testimonials-section .testimonial .testimonial-content .client-name {
   font-size: 0.95rem;
   font-weight: 500;
   color: #1D423B;
   margin: 0;
+  font-style: normal;
 }
 
 /* --------------------------- FOOTER CENTERING --------------------------- */
