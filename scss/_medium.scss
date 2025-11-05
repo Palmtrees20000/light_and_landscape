@@ -1,0 +1,258 @@
+/* NAVIGATION STUFF GOES HERE  */
+#hamburgerBtn {
+    display: none;
+}
+#primaryNav {
+    display: flex;
+}
+nav {
+    ul li a {
+        border: none;
+        font-size: .85rem;
+        font-weight: $normalWeight;
+        padding: .5rem 1.2rem;
+        /*transition*/
+        transition: background 0.5s linear;
+    }
+    ul li a:hover {
+        background-color: $primaryColor;
+        color: white;
+    }
+} // end nav
+
+/* --------------------------- NAVBAR - MEDIUM SCREENS --------------------------- */
+.navbar {
+    .nav-bar-wrapper {
+        .nav-container {
+            padding: 0.5rem $containerPadding; // Reduced from 0.75rem
+            justify-content: flex-start;
+        }
+    }
+    
+    .nav-phone-mobile {
+        display: none; // Hide on medium screens since it's in header
+    }
+    
+    .nav-menu {
+        position: static;
+        flex-direction: row;
+        background-color: transparent;
+        box-shadow: none;
+        width: auto;
+        max-height: none;
+        display: flex;
+        gap: 1.5rem;
+        justify-content: flex-start;
+        padding: 0;
+        overflow: visible;
+        
+        .nav-item {
+            border-bottom: none;
+            position: relative;
+            
+            .nav-link {
+                padding: 0.75rem 1.2rem;
+                border-bottom: none;
+                font-size: 0.95rem;
+            }
+            
+            // Desktop dropdown styling
+            &.dropdown {
+                position: relative;
+                
+                .dropdown-menu {
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    min-width: 200px;
+                    background-color: #2a2a2a;
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+                    border-radius: 0 0 8px 8px;
+                    margin-top: 0;
+                    
+                    li {
+                        .dropdown-link {
+                            padding: 0.8rem 1.2rem;
+                            font-size: 0.9rem;
+                            
+                            &:hover {
+                                padding-left: 1.5rem;
+                            }
+                        }
+                        
+                        &:last-child .dropdown-link {
+                            border-radius: 0 0 8px 8px;
+                        }
+                    }
+                }
+                
+                // Show dropdown on hover for desktop
+                &:hover {
+                    .dropdown-menu {
+                        display: block;
+                    }
+                    
+                    .dropdown-arrow {
+                        transform: rotate(180deg);
+                    }
+                }
+            }
+        }
+    }
+    
+    .hamburger {
+        display: none; // Hide hamburger on medium+ screens
+    }
+}
+
+/* --------------------------- HERO SLIDER - MEDIUM SCREENS --------------------------- */
+.hero-section {
+    .hero-swiper {
+        height: 55vh;
+        min-height: 400px;
+        max-height: 550px;
+        padding: 0 $containerPadding; // Add side padding to align with content
+        
+        .swiper-slide {
+            .hero-text-box {
+                top: 50%;
+                left: $containerPadding;
+                transform: translateY(-50%);
+                max-width: 55%;
+                padding: 1.5rem;
+                
+                h2 {
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                }
+                
+                p {
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+}
+
+/* --------------------------- HEADER RESPONSIVE - MEDIUM SCREENS --------------------------- */
+header {
+    padding: 1.2rem $containerPadding; // Increased padding for medium screens
+    
+    .header-text {
+        .main-title {
+            font-size: 1.8rem; // Slightly larger on medium screens
+        }
+        
+        .header-slogan {
+            font-size: 0.7rem; // Proportionally smaller
+        }
+    }
+    
+    .header-phone {
+        font-size: 0.95rem;
+    }
+}
+
+/* --------------------------- HERO VIDEO OVERLAY - MEDIUM SCREENS --------------------------- */
+.hero .video-overlay {
+    padding: 0.9rem 0.75rem; // Minimal horizontal padding to move text further left
+    
+    .overlay-content {
+        .hero-heading {
+            font-size: 1.6rem; // Larger heading for tablets
+        }
+        
+        .hero-subtext {
+            font-size: 1rem; // Larger subtext for better readability
+        }
+    }
+}
+
+/* --------------------------- HEADER RESPONSIVE - MEDIUM SCREENS --------------------------- */
+#speakers {
+    .speakers-container {
+        grid-template-columns: repeat(2, 1fr); // Two columns for tablets
+        gap: 2rem;
+        justify-items: center; // Center cards in their grid areas
+    }
+    
+    .speaker-card {
+        height: 420px; // Slightly taller for better proportions on medium screens
+        max-width: 280px; // Constrain width for better proportions on medium screens
+    }
+}
+
+/* --------------------------- HERO VIDEO OVERLAY - MEDIUM SCREENS --------------------------- */
+.hero .video-overlay .overlay-content {
+    max-width: 80%; // Slightly wider content area on tablets
+    
+    .hero-heading {
+        font-size: 1.8rem; // Larger heading for better impact on tablets
+    }
+    
+    .hero-subtext {
+        font-size: 1.1rem; // Proportionally larger subtext
+    }
+}
+
+/* --------------------------- MAIN CONTENT - MEDIUM SCREENS --------------------------- */
+main {
+    padding: 0 $containerPadding;
+}
+
+/* --------------------------- SLOGAN RESPONSIVE - MEDIUM SCREENS --------------------------- */
+main .slogan {
+    font-size: 1.2rem; // Slightly larger on medium screens
+    margin: -0.5rem 0 2rem 0; // More bottom margin for better spacing
+}
+
+/* --------------------------- SERVICES SECTION - MEDIUM SCREENS --------------------------- */
+.services-section {
+    .section-title {
+        padding: 0 $containerPadding; // Update padding for medium screens
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr); // Two columns for tablets
+        gap: 2.5rem;
+        padding: 0 $containerPadding; // Update padding for medium screens
+    }
+    
+    .service-card {
+        .image-wrapper {
+            height: 280px; // Slightly taller images on medium screens
+            
+            .custom-png {
+                width: 45%;
+                max-width: 180px;
+            }
+            
+            .flower-png {
+                width: 30%;
+                max-width: 100px;
+            }
+        }
+    }
+}
+
+/* --------------------------- TESTIMONIALS SECTION - MEDIUM SCREENS --------------------------- */
+.testimonials-section {
+    .section-title {
+        padding: 0 $containerPadding; // Update padding for medium screens
+    }
+    
+    .testimonials-container {
+        grid-template-columns: repeat(2, 1fr); // Two columns for tablets
+        gap: 2.5rem;
+        padding: 0 $containerPadding; // Update padding for medium screens
+    }
+    
+    .testimonial {
+        .client-image {
+            .client-photo {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    }
+}

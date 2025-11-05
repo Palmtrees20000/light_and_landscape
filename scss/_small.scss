@@ -1,0 +1,992 @@
+/* Prevent adjustments of font size after orientation changes in IE on Windows Phone and in iOS.  */
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+/*  Apply a natural box layout model to all elements  */
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+} // end all elements
+
+/* --------------------------- BODY --------------------------- */
+body {
+    font-family: $defaultFont;
+    font-weight: $lightWeight;
+    min-width: 320px;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* --------------------------- NAVBAR --------------------------- */
+.navbar {
+    background-color: #2a2a2a;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    
+    .nav-bar-wrapper {
+        background-color: #2a2a2a;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem $gutter; // Reduced from 0.75rem
+        max-width: $containerMaxWidth;
+        margin: 0 auto;
+        position: relative;
+        transition: padding 0.3s ease;
+    }
+    
+    .nav-menu {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 100%; // Drop down from navbar
+        flex-direction: column;
+        background-color: #4a4a4a; // Gray background matching image
+        width: 100%;
+        max-height: 0;
+        text-align: left; // Left-aligned text
+        transition: max-height 0.4s ease-in-out, padding 0.4s ease, background-color 0.3s ease;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.3);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        z-index: 999;
+        overflow: hidden;
+        
+        &.active {
+            display: flex;
+            max-height: 100vh;
+            padding: 1rem 0;
+            overflow-y: auto;
+        }
+        
+        .nav-item {
+            margin: 0;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: border-bottom 0.3s ease;
+            
+            .nav-link {
+                display: flex; // Use flex to position arrow on right
+                justify-content: space-between; // Arrow on right
+                align-items: center;
+                padding: 1.2rem 1.5rem; // More left padding
+                color: white;
+                text-decoration: none;
+                font-size: 1.1rem; // Slightly larger font
+                transition: all 0.3s ease;
+                
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                    color: white;
+                }
+                
+                .dropdown-arrow {
+                    font-size: 0.7rem;
+                    transition: transform 0.3s ease;
+                }
+            }
+            
+            // Dropdown menu
+            &.dropdown {
+                .dropdown-menu {
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                    display: none;
+                    background-color: #3a3a3a; // Slightly darker than main menu
+                    
+                    li {
+                        .dropdown-link {
+                            display: block;
+                            padding: 0.9rem 1.5rem 0.9rem 2.5rem; // More indentation
+                            color: rgba(255, 255, 255, 0.9);
+                            text-decoration: none;
+                            font-size: 0.95rem;
+                            transition: all 0.3s ease;
+                            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                            
+                            &:hover {
+                                background-color: rgba(76, 175, 80, 0.2);
+                                color: #4CAF50;
+                                padding-left: 3rem;
+                            }
+                        }
+                    }
+                }
+                
+                &.active {
+                    .dropdown-menu {
+                        display: block;
+                    }
+                    
+                    .dropdown-arrow {
+                        transform: rotate(180deg);
+                    }
+                }
+            }
+        }
+    }
+    
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        background: transparent;
+        border: none;
+        z-index: 1001;
+        position: relative;
+        transition: transform 0.3s ease;
+        
+        .bar {
+            width: 28px;
+            height: 3px;
+            background-color: white;
+            transition: all 0.3s ease-in-out;
+            border-radius: 3px;
+            position: absolute;
+            
+            &:nth-child(1) {
+                top: 10px;
+            }
+            
+            &:nth-child(2) {
+                top: 18px;
+            }
+            
+            &:nth-child(3) {
+                top: 26px;
+            }
+        }
+        
+        &.active {
+            .bar:nth-child(1) {
+                top: 18px;
+                transform: rotate(45deg);
+            }
+            
+            .bar:nth-child(2) {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            
+            .bar:nth-child(3) {
+                top: 18px;
+                transform: rotate(-45deg);
+            }
+        }
+    }
+}
+
+
+
+/* --------------------------- HEADER --------------------------- */
+#headerWrapper {
+    border-bottom: 1px solid $greyColor;
+    background-color: $secondaryColor; // Teal blue background
+    transition: all 0.3s ease;
+}
+header {
+    display: grid;
+    grid-template-columns: 50px auto auto; // Removed hamburger column
+    column-gap: $gutter;
+    align-items: center; //vertically
+    padding: 1rem $gutter; // Increased from .5rem
+    max-width: $containerMaxWidth;
+    margin: 0 auto;
+    transition: padding 0.3s ease;
+    
+    // Container for header text (title + slogan)
+    .header-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; // Left align the text stack
+        gap: 0.1rem; // Small gap between title and slogan
+        transition: gap 0.3s ease;
+        
+        .main-title {
+            font-size: 1.6rem;
+            font-weight: $lightWeight;
+            color: white; // White text on blue background
+            line-height: 1.2; // Tighter line height
+            transition: font-size 0.3s ease;
+        }
+        
+        .header-slogan {
+            font-size: 0.65rem; // Smaller than main title
+            font-weight: $lightWeight;
+            color: rgba(255, 255, 255, 0.9); // Slightly transparent white for hierarchy
+            font-style: italic; // Elegant italic styling
+            line-height: 1;
+            margin-top: -0.1rem; // Pull slightly closer to main title
+            transition: font-size 0.3s ease;
+        }
+    }
+    
+    // Phone number in header
+    .header-phone {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        color: white;
+        font-size: 0.85rem;
+        font-weight: $normalWeight;
+        white-space: nowrap;
+        padding-right: $gutter;
+        transition: font-size 0.3s ease, padding 0.3s ease;
+    }
+} // end header
+
+
+/* --------------------------- NAVIGATION STUFF GOES HERE --------------------------- */
+// copy for assignment
+#hamburgerBtn {
+    position: relative;
+    height: 44px;
+    width: 44px;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.3); // Light white border on blue background
+    border-radius: 10px;
+    display: none; // Hide - using navbar hamburger instead
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .top, .bottom {
+        position: absolute;
+        height: 3px;
+        width: 75%;
+        background-color: white; // White hamburger lines on blue background
+        transition: all .3s ease;
+        border-radius: 1px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .top {
+        top: 30%;
+    }
+    .bottom {
+        bottom: 30%;
+    }
+} // end hamburgerBtn
+
+#hamburgerBtn.open {
+    .top {
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    }
+    .bottom {
+        bottom: 50%;
+        transform: translateX(-50%) translateY(50%) rotate(-45deg);
+    }
+} // end open
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+    li a {
+        color: $primaryColor;
+        display: block;
+        padding: .75rem $gutter;
+        text-decoration: none;
+        border-bottom: 1px solid $greyColor;
+    }
+    li.active a {
+        color: rgb(58, 49, 0);   // Darker golden brown for better contrast compliance
+
+    }
+} // end nav
+
+//Show the menu links
+nav ul.open {
+    display: block;
+}
+
+/* --------------------------- MAIN CONTENT WRAPPER --------------------------- */
+
+main {
+    max-width: $containerMaxWidth;
+    margin: 0 auto;
+    padding: 0 $gutter;
+    
+    h1 {
+        padding: 1rem 0 0.5rem 0;
+        font-size: 1.5rem;
+        color: $secondaryColor;
+        font-weight: $lightWeight
+    }
+    
+    // Slogan/tagline styling
+    .slogan {
+        text-align: center; // Center the slogan
+        font-size: 1.1rem; // Slightly larger than regular text
+        font-style: italic; // Elegant italic styling
+        font-weight: $lightWeight; // Light weight for sophistication
+        color: #666; // Subtle gray color for distinction
+        margin: -0.5rem 0 1.5rem 0; // Negative top margin to bring closer to h1, bottom margin for space before hero
+        padding: 0; // Remove default paragraph padding
+        line-height: 1.4; // Comfortable line height
+    }
+    
+    h2 {
+        padding: 0;
+        font-size: 1.8rem;
+        color: $activeNavColor; // Use active nav color for "Why Attend?" heading
+        font-weight: $normalWeight; // Make "Why Attend?" more bold
+        margin-bottom: 1rem;
+    }
+    
+    p {
+        padding: 0.5rem 0;
+        color: #333;
+        line-height: $leading;
+    }
+}// end main
+
+/* --------------------------- HERO SLIDER SECTION --------------------------- */
+.hero-section {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    
+    .hero-swiper {
+        width: 100%;
+        max-width: $containerMaxWidth; // Match page max-width
+        margin: 0 auto; // Center the slider
+        height: 50vh;
+        min-height: 300px;
+        max-height: 450px;
+        
+        .swiper-slide {
+            position: relative;
+            
+            .hero-image {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                overflow: hidden;
+                background-color: #f5f5f5;
+                
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: center;
+                    display: block;
+                }
+                
+                .hero-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.6) 100%);
+                    pointer-events: none;
+                }
+            }
+            
+            .hero-text-box {
+                position: absolute;
+                top: 50%; // Center vertically
+                left: $gutter;
+                right: auto;
+                transform: translateY(-50%); // Center transform
+                padding: 1rem;
+                color: white;
+                z-index: 10;
+                text-align: left;
+                max-width: 85%;
+                background: rgba(0, 0, 0, 0.5); // Semi-transparent background for readability
+                border-radius: 8px;
+                
+                h2 {
+                    font-size: 1.5rem;
+                    font-weight: $normalWeight;
+                    margin: 0 0 0.75rem 0;
+                    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+                    line-height: 1.2;
+                    padding: 0;
+                }
+                
+                p {
+                    font-size: 0.9rem;
+                    margin: 0;
+                    padding: 0;
+                    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+                    line-height: 1.5;
+                    opacity: 0.95;
+                }
+            }
+        }
+        
+        // Swiper navigation buttons - hidden
+        .swiper-button-next,
+        .swiper-button-prev {
+            display: none;
+        }
+        
+        // Swiper pagination
+        .swiper-pagination {
+            bottom: 10px;
+            
+            .swiper-pagination-bullet {
+                background: white;
+                opacity: 0.6;
+                
+                &.swiper-pagination-bullet-active {
+                    opacity: 1;
+                    background: white;
+                }
+            }
+        }
+    }
+}
+
+// copy for assignment
+.hero {
+    position: relative;
+    video {
+        width: 100%;
+        height: auto;
+    }
+    
+    // Full-width top overlay with gradient for InnovateTech 2025 message
+    .video-overlay {
+        position: absolute;
+        top: 0; // Flush with top edge
+        left: 0; // Flush with left edge
+        right: 0; // Extend to right edge
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 70%, transparent 100%); // Gradient from dark to transparent
+        padding: 0.75rem 0.5rem; // Minimal horizontal padding to move text further left
+        
+        // Container for overlay text content
+        .overlay-content {
+            text-align: left; // Left-align text
+            color: white; // Ensure text is white
+            max-width: 70%; // Constrain width so text doesn't stretch too far right
+            margin-left: 0; // Ensure content starts at the far left
+            
+            // Main heading styling
+            .hero-heading {
+                font-size: 1.4rem; // Responsive base size for mobile
+                font-weight: bold; // Bold text for emphasis
+                line-height: 1.2; // Tight line spacing for heading
+                margin: 0 0 0.5rem 0; // Reduced space below heading
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); // Shadow for readability
+                color: white; // Explicitly white text
+                padding-left: 0; // No additional left padding - aligned with parent
+            }
+            
+            // Subtext styling
+            .hero-subtext {
+                font-size: 0.9rem; // Smaller than heading for mobile
+                font-weight: 300; // Light font weight for contrast
+                line-height: 1.4; // Good readability
+                margin: 0; // Remove default margins
+                opacity: 0.95; // Slightly transparent for hierarchy
+                text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7); // Text shadow for readability
+                color: white; // Explicitly white text
+                padding-left: 0; // No additional left padding - aligned with heading
+            }
+        }
+    }
+} // end hero
+
+/* --------------------------- SPEAKERS WRAPPER - FULL WIDTH BACKGROUND --------------------------- */
+#speakersWrapper {
+    width: 100%;
+    background-color: #f8f9fa; // Modern light gray background
+    padding: 3rem 0; // Vertical padding for breathing room
+    
+    // Apply same content constraints as main content areas
+    #speakers {
+        padding: 0 $gutter; // Side padding using existing gutter variable
+    }
+}
+
+/* --------------------------- SPEAKERS SECTION --------------------------- */
+#speakers {
+    // Remove individual max-width and padding - let it inherit from wrapper
+    
+    h2 {
+        text-align: center;
+        font-size: 2rem;
+        color: rgb(144, 122, 0); // Changed "Featured Speakers" to requested color
+        margin-top: 10px; // Move heading up away from cards
+        margin-bottom: 4rem; // Increase bottom margin for better spacing
+        font-weight: $normalWeight; // Make "Featured Speakers" more bold
+    }
+    
+    // Container for all speaker cards - responsive grid
+    .speakers-container {
+        display: grid;
+        grid-template-columns: 1fr; // Single column on mobile
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        // Ensure consistent alignment for all cards
+        justify-items: center; // Center cards horizontally
+        align-items: start; // Align cards to top to prevent height variations
+    }
+    
+    // Individual speaker card container
+    .speaker-card {
+        perspective: 1000px; // Creates 3D space for flip effect
+        height: 400px; // Fixed height for all cards - ensures consistency
+        width: 100%; // Full width within grid container
+        max-width: 320px; // Maximum width constraint for consistency
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease; // Smooth hover effects
+        
+        // Hover effect - glow and lift + show scrollbar
+        &:hover {
+            transform: translateY(-8px); // Lifts the card slightly
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15); // Enhanced shadow for glow effect
+            
+            // Show scrollbar when hovering over the entire card
+            .bio::-webkit-scrollbar-thumb {
+                opacity: 1; // Make scrollbar visible on card hover
+                background-color: rgba(255, 255, 255, 0.4);
+            }
+        }
+        
+        // Card inner container - this is what actually flips
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%; // Always fill the fixed 400px height
+            text-align: center;
+            /* Smooth transition for hover flips */
+            transition: transform 0.8s ease-in-out;
+            transform-style: preserve-3d; // Maintains 3D positioning
+            backface-visibility: hidden; // Standard property for backface visibility
+            border-radius: 12px; // Consistent rounded corners for all cards
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); // Uniform shadow for all cards
+            /* Vendor prefixes for better browser coverage */
+            -webkit-transform-style: preserve-3d;
+            -webkit-backface-visibility: hidden;
+            -moz-transform-style: preserve-3d;
+            -moz-backface-visibility: hidden;
+        }
+
+        /*
+        Hover / focus behavior:
+        - When the user hovers (or keyboard-focuses) the `.speaker-card`, we flip once to the back.
+        - When hover ends, the card smoothly flips back to the front.
+        - Simple front-to-back on hover, back-to-front on hover-out.
+        */
+        &:hover .card-inner,
+        &:focus-within .card-inner,
+        /* Support for an explicit 'is-hover' class set by JS for touch devices */
+        &.is-hover .card-inner {
+            /* Single flip to back on hover */
+            transform: rotateY(180deg) translateZ(0);
+            /* Use a smooth transition for the flip */
+            transition: transform 0.8s ease-in-out;
+        }
+
+        /* If the card also has the 'flipped' class (JS click), keep that behavior */
+        &.flipped .card-inner {
+            transform: rotateY(180deg) translateZ(0);
+        }
+        
+        // Front and back shared styles - ensures identical dimensions
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%; // Always full width of container
+            height: 100%; // Always full height (400px)
+            backface-visibility: hidden; // Hides the back side when not flipped
+            -webkit-backface-visibility: hidden; // Webkit prefix for better browser support
+            -moz-backface-visibility: hidden; // Mozilla prefix
+            border-radius: 12px; // Consistent rounded corners
+            overflow: hidden; // Prevents content from breaking card boundaries
+            // Ensure smooth transitions and proper 3D rendering
+            -webkit-transform: translateZ(0); // Force hardware acceleration
+            -moz-transform: translateZ(0); // Mozilla prefix
+            transform: translateZ(0); // Standard property
+        }
+        
+        // Front of card styling
+        .card-front {
+            background: white; // Consistent white background for all fronts
+            display: flex; // Use flexbox for consistent layout
+            flex-direction: column; // Stack image and overlay vertically
+            
+            .speaker-image {
+                width: 100%; // Always full width
+                height: 70%; // Consistent 70% height allocation for all images
+                object-fit: cover; // Crop images to fit consistently without distortion
+                object-position: center top; // Focus on lower part of images
+                flex-shrink: 0; // Prevent image from shrinking
+                display: block; // Remove any inline spacing issues
+            }
+            
+            // Overlay at bottom with speaker info - consistent positioning
+            .speaker-overlay {
+                flex: 1; // Take up remaining 30% of card height
+                display: flex; // Use flexbox for consistent text positioning
+                flex-direction: column; // Stack text elements vertically
+                justify-content: flex-start; // Move content to top of overlay area
+                background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
+                color: white;
+                padding: 0.75rem 1rem 1rem 1rem; // Less top padding to move names up
+                
+                h3 {
+                    margin: 0 0 0.5rem 0;
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                    line-height: 1.2; // Consistent line height
+                }
+                
+                .specialty {
+                    margin: 0 0 0.25rem 0;
+                    font-size: 0.9rem;
+                    color: #ffd700; // Gold color for specialty
+                    font-weight: 500;
+                    line-height: 1.2; // Consistent line height
+                }
+                
+                .talk-title {
+                    margin: 0;
+                    font-size: 0.85rem;
+                    line-height: 1.3;
+                    opacity: 0.9;
+                }
+            }
+        }
+        
+        // Back of card styling
+        .card-back {
+            background: linear-gradient(135deg, $secondaryColor, darken($secondaryColor, 10%));
+            color: white;
+            transform: rotateY(180deg) translateZ(0); // Initially flipped to back with hardware acceleration
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            
+            h3 {
+                margin: 0 0 1rem 0;
+                font-size: 1.3rem;
+                font-weight: 500;
+                border-bottom: 2px solid rgba(255,255,255,0.3);
+                padding-bottom: 0.5rem;
+            }
+            
+            .bio {
+                flex: 1;
+                overflow-y: auto; // Allows scrolling if content is too long
+                scroll-behavior: smooth; // Smooth scrolling behavior
+                padding-right: 8px; // Small padding to prevent content from touching scrollbar
+                
+                // Apple-style minimalist scrollbar for webkit browsers (Chrome, Safari, Edge)
+                &::-webkit-scrollbar {
+                    width: 4px; // Ultra-thin Apple-style width
+                    background: transparent; // No track background - just the thumb
+                }
+                
+                // No track styling - Apple scrollbars don't show a background track
+                &::-webkit-scrollbar-track {
+                    background: transparent; // Completely invisible track
+                }
+                
+                // Minimalist scrollbar thumb - just a thin line
+                &::-webkit-scrollbar-thumb {
+                    background-color: rgba(255, 255, 255, 0.2); // Very subtle, barely visible
+                    border-radius: 2px; // Slightly rounded for Apple aesthetic
+                    transition: all 0.3s ease; // Smooth fade transitions
+                    opacity: 0; // Start invisible
+                }
+                
+                // Show scrollbar on hover over the entire card or when actively scrolling
+                &:hover::-webkit-scrollbar-thumb {
+                    opacity: 1; // Fade in on hover
+                    background-color: rgba(255, 255, 255, 0.4); // More visible when hovering
+                }
+                
+                // Darker thumb when directly hovering over the scrollbar itself
+                &::-webkit-scrollbar-thumb:hover {
+                    background-color: rgba(255, 255, 255, 0.6); // Enhanced visibility for interaction
+                }
+                
+                // Firefox minimalist scrollbar (fallback for non-webkit browsers)
+                scrollbar-width: thin; // Thinnest option available in Firefox
+                scrollbar-color: rgba(255, 255, 255, 0.3) transparent; // Subtle thumb, no track
+                
+                p {
+                    margin: 0 0 1rem 0;
+                    font-size: 0.85rem;
+                    line-height: 1.4;
+                    text-align: left;
+                    
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+        
+        // Focus outline for accessibility (keyboard navigation only)
+        &:focus {
+            outline: none; // Remove default focus outline
+        }
+        
+        // Show focus outline only when navigating with keyboard
+        &:focus-visible {
+            outline: 3px solid $primaryColor;
+            outline-offset: 4px;
+        }
+        
+        // Additional hover glow effect for the card inner
+        &:hover .card-inner {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+    }
+}
+
+/* --------------------------- SERVICES SECTION --------------------------- */
+.services-section {
+    padding: 3rem 0; // Remove side padding from section
+    background-color: #f5f5f5;
+    
+    .section-title {
+        text-align: center;
+        font-size: 2rem;
+        color: $secondaryColor;
+        margin-bottom: 2rem;
+        font-weight: $normalWeight;
+        padding: 0 $gutter; // Add padding to title
+    }
+    
+    .services-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        max-width: $containerMaxWidth;
+        margin: 0 auto;
+        padding: 0 $gutter; // Add padding to grid
+    }
+    
+    .service-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        
+        &:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-header {
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, $accentColor, darken($accentColor, 10%));
+            
+            h3 {
+                margin: 0;
+                color: white;
+                font-size: 1.4rem;
+                font-weight: $normalWeight;
+            }
+        }
+        
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            
+            // Darkening overlay for all service cards
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.4);
+                z-index: 1;
+                pointer-events: none;
+            }
+            
+            .service-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+                display: block;
+            }
+            
+            .overlay-png {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                pointer-events: none;
+                filter: brightness(0) invert(1); // Converts black to white
+                opacity: 0.9;
+                mix-blend-mode: screen; // Ensures white overlay blends properly
+                z-index: 2;
+            }
+            
+            .custom-png {
+                position: absolute;
+                bottom: 50%;
+                left: 50%;
+                right: auto;
+                transform: translate(-50%, 50%);
+                width: 55%;
+                max-width: 220px;
+                filter: brightness(0) invert(1); // White silhouette
+                opacity: 1;
+                mix-blend-mode: screen;
+                z-index: 2;
+            }
+            
+            // Smaller flower PNG
+            .flower-png {
+                width: 35%;
+                max-width: 120px;
+            }
+            
+            .overlay-svg {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 30%;
+                pointer-events: none;
+            }
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+            
+            p {
+                margin: 0;
+                color: #333;
+                line-height: 1.6;
+                font-size: 0.95rem;
+            }
+        }
+    }
+}
+
+/* --------------------------- TESTIMONIALS SECTION --------------------------- */
+.testimonials-section {
+    padding: 3rem 0; // Remove side padding from section
+    background-color: white;
+    
+    .section-title {
+        text-align: center;
+        font-size: 2rem;
+        color: $secondaryColor;
+        margin-bottom: 2rem;
+        font-weight: $normalWeight;
+        padding: 0 $gutter; // Add padding to title
+    }
+    
+    .testimonials-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        max-width: $containerMaxWidth;
+        margin: 0 auto;
+        padding: 0 $gutter; // Add padding to container
+    }
+    
+    .testimonial {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        
+        .client-image {
+            margin-bottom: 1.5rem;
+            
+            .client-photo {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%; // Makes the image circular
+                object-fit: cover;
+                border: 3px solid $secondaryColor;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+        }
+        
+        .testimonial-content {
+            p {
+                font-size: 1rem;
+                line-height: 1.6;
+                color: #555;
+                margin: 0 0 1rem 0;
+                font-style: italic;
+            }
+            
+            h4 {
+                font-size: 0.95rem;
+                font-weight: $normalWeight;
+                color: $secondaryColor;
+                margin: 0;
+            }
+        }
+    }
+}
+
+/* --------------------------- FOOTER CENTERING --------------------------- */
+#footerWrapper {
+    width: 100%;
+    background-color: $secondaryColor; // Teal blue background to match header
+    border-top: 1px solid $greyColor; // Border to match header styling
+}
+
+footer {
+    max-width: $containerMaxWidth;
+    margin: 0 auto;
+    padding: $containerPadding;
+    text-align: center; // Center the footer content
+    
+    .legal {
+        margin: 0;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.9); // White text to match header styling
+        line-height: 1.5;
+        
+        a {
+            color: white; // White links to match header text
+            text-decoration: none;
+            
+            &:hover {
+                text-decoration: underline;
+                color: rgba(255, 255, 255, 0.8); // Slightly dimmed on hover
+            }
+        }
+    }
+}
+

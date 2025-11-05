@@ -1,0 +1,26 @@
+$primaryColor: #5D5B18;    // Dark moss green
+$secondaryColor: #1D423B; // Brunswick green
+$accentColor: #8C403B;    // Cordovan (reddish brown)
+$greyColor: #4D5C38;      // Dark moss green variant
+$darkColor: #0D0D0D;      // Near Black
+$roseEbony: #7A4D4D;      // Rose ebony
+
+
+// Navigation specific colors for contrast compliance
+$activeNavColor: #8C403B;   // Cordovan for active nav - warm accent
+
+// High contrast colors for accessibility
+$highContrastText: #0D0D0D;      // Near black for excellent contrast on white
+$highContrastInput: #253540;     // Dark blue-gray for inputs
+
+$defaultFont: 'Spline Sans', 'Arial', 'Helvetica', sans-serif;
+$lightWeight: 300;
+$normalWeight: 500;
+$leading: 150%;
+
+$gutter: 10px;
+
+// Container widths for consistent layout
+$containerMaxWidth: 1200px;
+$containerPadding: 20px;
+$containerPaddingMedium: 40px;  

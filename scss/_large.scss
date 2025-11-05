@@ -1,0 +1,125 @@
+header, main {
+    max-width: $containerMaxWidth;
+    margin: auto;
+    padding: 0 $containerPaddingMedium;
+}
+
+header {
+    padding: 1.5rem $containerPaddingMedium; // Increased padding for large screens
+    
+    .header-text {
+        .main-title {
+            font-size: 2rem;
+        }
+        
+        .header-slogan {
+            font-size: 0.75rem;
+        }
+    }
+    
+    .header-phone {
+        font-size: 1rem;
+    }
+}
+
+div.parent {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    max-width: $containerMaxWidth;
+    margin: 0 auto;
+    padding: 0 $containerPaddingMedium;
+    
+    section{
+        grid-template-columns: 200px auto;
+        column-gap: 8px;
+    } 
+}
+
+/* NAVIGATION STUFF GOES HERE  */
+
+/* --------------------------- NAVBAR - LARGE SCREENS --------------------------- */
+.navbar {
+    .nav-container {
+        padding: 0.5rem $containerPaddingMedium; // Reduced from 0.75rem
+    }
+    
+    .nav-menu {
+        gap: 2rem;
+        
+        .nav-item {
+            .nav-link {
+                padding: 0.5rem 1.5rem; // Reduced from 0.75rem 1.8rem
+                font-size: 0.95rem; // Reduced from 1rem
+            }
+        }
+    }
+}
+
+/* --------------------------- HERO SLIDER - LARGE SCREENS --------------------------- */
+.hero-section {
+    .hero-swiper {
+        height: 60vh;
+        min-height: 450px;
+        max-height: 600px;
+        padding: 0 $containerPaddingMedium; // Add side padding to align with content
+        
+        .swiper-slide {
+            .hero-text-box {
+                top: 50%;
+                left: $containerPaddingMedium;
+                transform: translateY(-50%);
+                max-width: 45%;
+                padding: 2rem;
+                
+                h2 {
+                    font-size: 2.5rem;
+                    margin-bottom: 1.5rem;
+                }
+                
+                p {
+                    font-size: 1.1rem;
+                }
+            }
+        }
+    }
+}
+
+/* --------------------------- SERVICES SECTION - LARGE SCREENS --------------------------- */
+.services-section {
+    .section-title {
+        padding: 0 $containerPaddingMedium; // Update padding for large screens
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(4, 1fr); // Four columns for desktop
+        gap: 2rem;
+        padding: 0 $containerPaddingMedium; // Update padding for large screens
+    }
+    
+    .service-card {
+        .image-wrapper {
+            height: 220px; // Optimized height for 4-column layout
+            
+            .custom-png {
+                width: 50%;
+                max-width: 150px;
+            }
+            
+            .flower-png {
+                width: 32%;
+                max-width: 90px;
+            }
+        }
+    }
+}
+
+/* --------------------------- TESTIMONIALS SECTION - LARGE SCREENS --------------------------- */
+.testimonials-section {
+    .section-title {
+        padding: 0 $containerPaddingMedium; // Update padding for large screens
+    }
+    
+    .testimonials-container {
+        padding: 0 $containerPaddingMedium; // Update padding for large screens
+    }
+}
